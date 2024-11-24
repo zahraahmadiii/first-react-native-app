@@ -1,12 +1,22 @@
 import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
-
+import { StyleSheet } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createStackNavigator } from '@react-navigation/stack';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
+import Login from './screens/Login';
+import Home from './screens/Home';
 export default function App() {
+  const Stack = createStackNavigator();
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <SafeAreaProvider style={styles.safeArea}>
+    <NavigationContainer>
+      <StatusBar hidden/>
+    <Stack.Navigator initialRouteName="Login">
+      <Stack.Screen name="Login" component={Login}  options={{ headerShown: false }}  />
+      <Stack.Screen name="Home" component={Home} />
+    </Stack.Navigator>
+  </NavigationContainer>
+  </SafeAreaProvider>
   );
 }
 
@@ -17,4 +27,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  // safeArea: {
+  //   flex: 1,
+  // },
 });
